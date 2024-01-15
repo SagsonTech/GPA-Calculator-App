@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPA Calculator</title>
+
+    <!-- bootstrap  -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- stylesheet  -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="primary-background">
+    <nav class="secondary-background text-white p-4">
+        <ul class="nav justify-content-center align-items-center flex-column">
+            <h3 class="display-2">GPA Calculator</h3>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <div class="card p-2 primary-background">
+                            <form action="" method="post" id="marks-input-form">
+                                <div class="mb-2">
+                                    <label for="subject" class="form-label text-dark">Subject name</label>
+                                    <input type="text" class="form-control" id="subject"
+                                        placeholder="enter subject">
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-sm-5">
+                                        <input type="number" class="form-control float-center"
+                                            id='marks' placeholder="enter marks out of 100" max="100" min="0">
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <input type="submit"
+                                            class="form-control btn btn-dark text-light float-end"
+                                            value="Add" style="width: 40%; border-radius: 20px;">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ul>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="card">
+            <table class="table secondary-background table-striped table-bordered border-dark mb-0">
+                <thead>
+                    <tr class="text-light" style="font-size: 20px;">
+                        <th scope="col">Subject</th>
+                        <th scope="col">Marks secured</th>
+                        <th scope="col">Gross Points</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody class="primary-background text-center"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="h-100 p-5 text-white secondary-background mt-4 rounded-3">
+            <button class="btn btn-light md-3 calculate-gpa-btn">Calculate GPA</button>
+            <div class="text-center mt-3 p-2 alert-danger card" style="width: 30%;display: none;" id="gpa-box">
+                <div class="card-header secondary-background text-light">
+                    <h2>Your Calculated GPA</h2>
+                </div>
+                <div class="card-body">
+                    <h4 class="display-4" id="gpa">10</h4>     
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="h-100 p-5 text-dark bg-light mt-4 rounded-3 text-center">
+            <h2>Genaral Grade Distribution</h2>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <table class="table">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">Marks</th>
+                                    <th scope="col">Gross Percentage</th>
+                                    <th scope="col">Grade</th>
+                                    <th scope="col">Result</th>
+                                </tr>
+                            <tbody>
+                                <tr class="alert-success">
+                                    <td>91 - 100</td>
+                                    <td>10</td>
+                                    <td>A+</td>
+                                    <td>
+                                        Outstanding
+                                    </td>
+                                </tr>
+                                <tr class="alert-info">
+                                    <td>81 - 90</td>
+                                    <td>9</td>
+                                    <td>A</td>
+                                    <td>
+                                        Great Work
+                                    </td>
+                                </tr>
+                                <tr class="alert-warning">
+                                    <td>71 - 80</td>
+                                    <td>8</td>
+                                    <td>B</td>
+                                    <td>
+                                        Excellent
+                                    </td>
+                                </tr>
+                                <tr class="alert-secondary">
+                                    <td>61 - 70</td>
+                                    <td>7</td>
+                                    <td>C</td>
+                                    <td>
+                                        Good
+                                    </td>
+                                </tr>
+                                <tr class="alert-danger">
+                                    <td>51 - 60</td>
+                                    <td>6</td>
+                                    <td>D</td>
+                                    <td>
+                                        Needs improvement
+                                    </td>
+                                </tr>
+                            </tbody>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- bootstrap  -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <!-- script  -->
+    <script src="script.js"></script>
+</body>
+
+</html>
