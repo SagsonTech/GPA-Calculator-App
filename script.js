@@ -4,9 +4,9 @@ const tbody = document.querySelector('tbody');
 const calculateBtn = document.querySelector('.calculate-gpa-btn');
 
 // Required Arrays 
-const pointsAndMarks = [];
-const marksArray = [];
-const pointsArray = [];
+pointsAndMarks = [];
+let marksArray = [];
+let pointsArray = [];
 
 // function to calculate the individual subject points based on the marks 
 let calculatePoints = (marks) => {
@@ -140,11 +140,15 @@ tbody.addEventListener('click', (event) => {
         })
 
         pointsAndMarks.splice(index , 1);
+        
     }
 });
 
 // calculate gpa event 
 calculateBtn.addEventListener('click', (event) => {
+    marksArray = [];
+    pointsArray = [];
+
     // pushing marks and points into separate arrays for calculations 
     pointsAndMarks.forEach(object => {
         marksArray.push(object.mark);
