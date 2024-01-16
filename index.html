@@ -15,6 +15,7 @@
 </head>
 
 <body class="primary-background">
+    <!-- navigation  -->
     <nav class="secondary-background text-white p-4">
         <ul class="nav justify-content-center align-items-center flex-column">
             <h3 class="display-2">GPA Calculator</h3>
@@ -25,17 +26,15 @@
                             <form action="" method="post" id="marks-input-form">
                                 <div class="mb-2">
                                     <label for="subject" class="form-label text-dark">Subject name</label>
-                                    <input type="text" class="form-control" id="subject"
-                                        placeholder="enter subject">
+                                    <input type="text" class="form-control" id="subject" placeholder="enter subject">
                                 </div>
                                 <div class="row g-3">
                                     <div class="col-sm-5">
-                                        <input type="number" class="form-control float-center"
-                                            id='marks' placeholder="enter marks out of 100" max="100" min="0">
+                                        <input type="number" class="form-control float-center" id='marks'
+                                            placeholder="enter marks out of 100" max="100" min="0">
                                     </div>
                                     <div class="col-sm-5">
-                                        <input type="submit"
-                                            class="form-control btn btn-dark text-light float-end"
+                                        <input type="submit" class="form-control btn btn-dark text-light float-end"
                                             value="Add" style="width: 40%; border-radius: 20px;">
                                     </div>
                                 </div>
@@ -47,6 +46,7 @@
         </ul>
     </nav>
 
+    <!-- table  -->
     <div class="container mt-4">
         <div class="card">
             <table class="table secondary-background table-striped table-bordered border-dark mb-0">
@@ -63,18 +63,39 @@
         </div>
     </div>
 
+    <!-- gpa display  -->
     <div class="container">
         <div class="h-100 p-5 text-white secondary-background mt-4 rounded-3">
             <button class="btn btn-light md-3 calculate-gpa-btn">Calculate GPA</button>
-            <div class="text-center mt-3 p-2 alert-danger card" style="width: 30%;display: none;" id="gpa-box">
-                <div class="card-header secondary-background text-light">
-                    <h2>Your Calculated GPA</h2>
+
+            <div class="d-flex justify-content-between flex-wrap" id="display-box">
+                <div class="text-center mt-3 p-2 alert-danger card" style="width: 30%;display: none;" id="gpa-box">
+                    <div class="card-header secondary-background text-light">
+                        <h2>Calculated GPA</h2>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="display-4" id="gpa">10</h4>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <h4 class="display-4" id="gpa">10</h4>     
+                <div class="text-center mt-3 p-2 alert-danger card" style="width: 30%;display: none;" id="marks-box">
+                    <div class="card-header secondary-background text-light">
+                        <h2>Total Marks</h2>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="display-4" id="marks-value">10</h4>
+                    </div>
+                </div>
+                <div class="text-center mt-3 p-2 alert-danger card" style="width: 30%;display: none;" id="grade-box">
+                    <div class="card-header secondary-background text-light">
+                        <h2>Expected Grade</h2>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="display-4" id="grade">10</h4>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <div class="container">

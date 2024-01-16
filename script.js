@@ -4,32 +4,38 @@ const tbody = document.querySelector('tbody');
 const calculateBtn = document.querySelector('.calculate-gpa-btn');
 
 // Required Arrays 
+const pointsAndMarks = [];
+const marksArray = [];
 const pointsArray = [];
 
 // function to calculate the individual subject points based on the marks 
 let calculatePoints = (marks) => {
-    if(marks > 90 && marks <= 100){
+    if (marks > 90 && marks <= 100) {
         return 10;
     }
-    else if(marks > 80 && marks <= 90){
+    else if (marks > 80 && marks <= 90) {
         return 9;
     }
-    else if(marks > 70 && marks <= 80){
+    else if (marks > 70 && marks <= 80) {
         return 8;
     }
-    else if(marks > 60 && marks <= 70){
+    else if (marks > 60 && marks <= 70) {
         return 7;
     }
-    else if(marks > 50 && marks <= 60){
+    else if (marks > 50 && marks <= 60) {
         return 6;
     }
-    else{
+    else {
         return 5;
     }
 }
 
+let generateId = () => {
+    return Math.trunc((Math.random() * 1000));
+}
+
 // function add the marks,subject and points to the table 
-let addToTable = (subject , marks , points) => {
+let addToTable = (subject, marks, points , rowId) => {
 
     let tr = document.createElement('tr');
     let td1 = document.createElement('td');
@@ -42,8 +48,6 @@ let addToTable = (subject , marks , points) => {
     btn.classList.add('btn-sm');
     btn.classList.add('remove-btn');
 
-    console.dir(btn);
-
     td1.innerText = subject;
     td2.innerText = marks;
     td3.innerText = points;
@@ -55,64 +59,121 @@ let addToTable = (subject , marks , points) => {
     tr.append(td3);
     tr.append(td4);
 
+    tr.setAttribute('id' , rowId);
+
     tbody.append(tr);
 }
 
-let displayGpa = (gpa) => {
-    gpa = Number.parseFloat(gpa);
+let displayGpa = (displayContents) => {
+    let gpaValue = document.querySelector('#gpa');
+    let marksValue = document.querySelector('#marks-value');
+    let gradeValue = document.querySelector('#grade');
 
-    let value = document.querySelector('#gpa');
-    value.innerHTML = gpa;
+    gpaValue.innerHTML = displayContents.gpa;
+    marksValue.innerHTML = `${displayContents['securedMarks']} / ${displayContents['totalMarks']}`;
+    gradeValue.innerHTML = displayContents.grade;
 
-    let gpaBox = document.querySelector('#gpa-box');
+    document.querySelector('#gpa-box').style.display = 'inline-block';
+    document.querySelector('#marks-box').style.display = 'inline-block';
+    document.querySelector('#grade-box').style.display = 'inline-block';
+}
 
-    if(gpa >= 9){
-        gpaBox.classList.add = 'alert-success';
+let expectedGrade = (gpa) => {
+    if (gpa >= 9) {
+        return 'A+'
     }
-
-    gpaBox.style.display = 'block';
+    else if (gpa >= 8 && gpa < 9) {
+        return 'A';
+    }
+    else if (gpa >= 7 && gpa < 8) {
+        return 'B';
+    }
+    else if (gpa >= 6 && gpa < 7) {
+        return 'C';
+    }
+    else if (gpa >= 5 && gpa < 6) {
+        return 'D';
+    }
 }
 
 // handling submit event 
-form.addEventListener('submit' , (event) => {
+form.addEventListener('submit', (event) => {
     event.preventDefault();
 
     let subject = form.subject.value;
     let marks = form.marks.value;
-    if(subject === '' || marks === ''){
+    if (subject === '' || marks === '') {
         alert('Kindly enter the subject name and marks to add');
     }
-    else{
+    else {
         let points = calculatePoints(marks);
+        // genertaing the row id 
+    let rowId = generateId();
 
-        pointsArray.push(points);
+        pointsAndMarks.push(
+            {
+                id : rowId ,
+                mark: marks,
+                pts: points
+            }
+        );
 
         form.subject.value = '';
         form.marks.value = '';
 
-        addToTable(subject , marks , points);
+        addToTable(subject, marks, points , rowId);
     }
 })
 
 // removing a row as an event 
-tbody.addEventListener('click' , (event) => {
+tbody.addEventListener('click', (event) => {
     let target = event.target;
 
-    if(target.nodeName === "BUTTON"){
+    if (target.nodeName === "BUTTON") {
         let row = (event.target.parentElement).parentElement;
         row.style.display = 'none';
+
+        let rowId = row.getAttribute('id');
+
+        let index = pointsAndMarks.findIndex(obj => {
+            return obj.id == Number(rowId);
+        })
+
+        pointsAndMarks.splice(index , 1);
     }
 });
 
 // calculate gpa event 
-calculateBtn.addEventListener('click' , (event) => {
-    let sum = pointsArray.reduce(function(total , point){
-        return total = total + point;
-    } , 0);
+calculateBtn.addEventListener('click', (event) => {
+    // pushing marks and points into separate arrays for calculations 
+    pointsAndMarks.forEach(object => {
+        marksArray.push(object.mark);
+        pointsArray.push(object.pts);
+    })
 
-    let gpa = sum / pointsArray.length;
+    // calculating the sum of marks 
+    let securedMarks = marksArray.reduce(function (sum, marks) {
+        return sum = sum + Number(marks);
+    }, 0)
 
-    displayGpa(gpa);
+    // calculating the total marks :
+    let totalMarks = marksArray.length * 100;
+
+    // calculating the gpa
+    let sumOfPoints = pointsArray.reduce(function (sum, points) {
+        return sum = sum + points;
+    }, 0)
+    let gpa = sumOfPoints / pointsArray.length;
+
+    // calculating the expected grade 
+    let grade = expectedGrade(gpa);
+
+    displayGpa({
+        gpa: gpa,
+        totalMarks: totalMarks,
+        securedMarks: securedMarks,
+        grade: grade
+    });
 })
 
 
